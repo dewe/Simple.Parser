@@ -80,6 +80,18 @@ namespace ParserTests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestMethod]
+        public void NestedUnorderedList()
+        {
+            var input = "* List item 1\n** List item 11\n** List item 12\n * List item 2";
+            var expected = "* List item 1\n    * List item 11\n    * List item 12\n* List item 2";
+
+            var actual = ScrewTurn.ToMarkdown(input);
+
+            Assert.AreEqual(expected, actual);
+        }
+
     }
 
 }

@@ -17,14 +17,14 @@ namespace ParserTests
 
         private string FixLists(string input)
         {
-            var ol = new Regex(@"(?<ol>#.+?)((?=\n\n)|$)", RegexOptions.Compiled | RegexOptions.Singleline);
-            return ol.Replace(input, OrderedListEvaluator);
+            var listblock = new Regex(@"(?<list>(#|\*).+?)((?=\n\n)|$)", RegexOptions.Compiled | RegexOptions.Singleline);
+            return listblock.Replace(input, ListBlockEvaluator);
         }
 
-        private string OrderedListEvaluator(Match match)
+        private string ListBlockEvaluator(Match match)
         {
             var li = new Regex(@"(?<=(?:^|\n))(#+)\s*(?<li>.+?)(?=(\n#)|$)", RegexOptions.Compiled | RegexOptions.Singleline);
-            var list = match.Groups["ol"].Value;
+            var list = match.Groups["list"].Value;
             var count = 0;
 
             return li.Replace(list, m => { return string.Format("{0}. {1}", ++count, m.Groups["li"]); });
