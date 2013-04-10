@@ -5,7 +5,7 @@ namespace ParserTests
 {
     public class TestBase
     {
-        protected ScrewturnToMarkupParser s2md = new ScrewturnToMarkupParser();
+        protected ScrewTurnParser ScrewTurn = new ScrewTurnParser();
     }
 
     [TestClass]
@@ -17,7 +17,7 @@ namespace ParserTests
             var input = "==Header 1==";
             var expected = "# Header 1";
 
-            var actual = s2md.Transform(input);
+            var actual = ScrewTurn.ToMarkdown(input);
 
             Assert.AreEqual(expected, actual);
         }
@@ -28,7 +28,7 @@ namespace ParserTests
             var input = "===Header 2===";
             var expected = "## Header 2";
 
-            var actual = s2md.Transform(input);
+            var actual = ScrewTurn.ToMarkdown(input);
             
             Assert.AreEqual(expected, actual);
         }
@@ -39,7 +39,7 @@ namespace ParserTests
             var input = "====Header 3====";
             var expected = "### Header 3";
 
-            var actual = s2md.Transform(input);
+            var actual = ScrewTurn.ToMarkdown(input);
             
             Assert.AreEqual(expected, actual);
         }
@@ -50,7 +50,7 @@ namespace ParserTests
             var input = "=====Header 4=====";
             var expected = "#### Header 4";
 
-            var actual = s2md.Transform(input);
+            var actual = ScrewTurn.ToMarkdown(input);
             
             Assert.AreEqual(expected, actual);
         }
@@ -65,7 +65,7 @@ namespace ParserTests
             var input = "* List item\n* List item";
             var expected = "* List item\n* List item";
 
-            var actual = s2md.Transform(input);
+            var actual = ScrewTurn.ToMarkdown(input);
 
             Assert.AreEqual(expected, actual);
         }
@@ -76,7 +76,7 @@ namespace ParserTests
             var input = "# List item\n# List item";
             var expected = "1. List item\n2. List item";
 
-            var actual = s2md.Transform(input);
+            var actual = ScrewTurn.ToMarkdown(input);
 
             Assert.AreEqual(expected, actual);
         }

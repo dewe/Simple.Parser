@@ -2,31 +2,32 @@
 
 namespace ParserTests
 {
-    public class ScrewturnToMarkupParser
+    public class ScrewTurnParser
     {
 
-        public string Transform(string input)
+        public string ToMarkdown(string input)
         {
             var text = input;
 
-            text = FixHeaders(text);
             text = FixLists(text);
+            text = FixHeaders(text);
 
             return text;
         }
 
         private string FixLists(string input)
         {
-//            var olist = new Regex(@"(?<=(\n|^))((\*|\#)+(\ )?.+?\n)+((?=\n)|\z)", RegexOptions.Compiled | RegexOptions.Singleline);
-            var olist = new Regex(@"^(\*|\#)+(\ )?(.+)?\n", RegexOptions.Compiled | RegexOptions.Singleline);
+            var ol = new Regex(@"(?<ol>#.+?)((?=\n\n)|$)", RegexOptions.Compiled | RegexOptions.Singleline);
+            return ol.Replace(input, OrderedListEvaluator);
+        }
 
-            //            text = olist.Replace(text, match =>
-            return olist.Replace(input, new MatchEvaluator(
-                        (m) =>
-                        {
-                            var item = m.Groups[0];
-                            return "1. " + item;
-                        }));
+        private string OrderedListEvaluator(Match match)
+        {
+            var li = new Regex(@"(?<=(?:^|\n))(#+)\s*(?<li>.+?)(?=(\n#)|$)", RegexOptions.Compiled | RegexOptions.Singleline);
+            var list = match.Groups["ol"].Value;
+            var count = 0;
+
+            return li.Replace(list, m => { return string.Format("{0}. {1}", ++count, m.Groups["li"]); });
         }
 
         private string FixHeaders(string input)

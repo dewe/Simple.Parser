@@ -52,7 +52,7 @@
   <ItemGroup>
     <Compile Include="BlockElementsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScrewturnToMarkupParser.cs" />
+    <Compile Include="ScrewturnParser.cs" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
