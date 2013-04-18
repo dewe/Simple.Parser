@@ -1,4 +1,6 @@
 Lab project
 ===========
 
-First objective: code for converting Screwturn markup to Markdown syntax.
+Parse 4 fun.
+
+Code for converting Screwturn markup to Markdown syntax.
